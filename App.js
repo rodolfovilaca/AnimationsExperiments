@@ -3,6 +3,7 @@ import createNativeStackNavigator from 'react-native-screens/createNativeStackNa
 import {createAppContainer} from 'react-navigation';
 import Home from './src/screens/home';
 import InfiniteScrollExample from './src/screens/infiniteScroll';
+import SpeedScreen from './src/screens/speed';
 
 useScreens();
 
@@ -13,6 +14,9 @@ const appStack = createNativeStackNavigator(
     },
     InfiniteScroll: {
       screen: InfiniteScrollExample,
+    },
+    SpeedScreen: {
+      screen: SpeedScreen,
     },
   },
   {
