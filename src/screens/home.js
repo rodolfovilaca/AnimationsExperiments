@@ -65,7 +65,7 @@ const Home = props => {
 
   const data = [
     {title: 'InfiniteScroll', onPress: () => navigate('InfiniteScroll')},
-    {title: 'InfiniteScroll2', onPress: () => navigate('InfiniteScroll')},
+    {title: 'SpeedScreen', onPress: () => navigate('SpeedScreen')},
     {title: 'InfiniteScroll3', onPress: () => navigate('InfiniteScroll')},
     {title: 'InfiniteScroll4', onPress: () => navigate('InfiniteScroll')},
     {title: 'InfiniteScroll5', onPress: () => navigate('InfiniteScroll')},
