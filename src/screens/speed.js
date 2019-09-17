@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {Dimensions, StyleSheet, View, Text} from 'react-native';
 import Svg, {Defs, LinearGradient, Stop, Path} from 'react-native-svg';
 import Animated from 'react-native-reanimated';
@@ -7,10 +7,10 @@ import PoliceCar from '../../assets/svgs/police-car.svg';
 import Warning from '../../assets/svgs/warning.svg';
 import Camera from '../../assets/svgs/cctv.svg';
 
-const {interpolate, multiply, Extrapolate} = Animated;
+const {interpolate, multiply, useCode, call, round} = Animated;
 const {width} = Dimensions.get('window');
 const size = width - 32;
-const strokeWidth = 50;
+const strokeWidth = 20;
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const {PI, cos, sin} = Math;
 const r = (size - strokeWidth) / 2;
@@ -25,6 +25,21 @@ const y1 = -r * sin(startAngle) + cy;
 const x2 = cx - r * cos(endAngle);
 const y2 = -r * sin(endAngle) + cy;
 const d = `M ${x1} ${y1} A ${r} ${r} 0 1 0 ${x2} ${y2}`;
+const circumference = r * A;
+
+const Counter = ({progress}) => {
+  const [progressValue, setProgressValue] = useState(0);
+  useCode(
+    call([round(multiply(progress, 100))], prog => {
+      if (prog !== progressValue) {
+        setProgressValue(prog);
+      }
+    }),
+    [],
+  );
+
+  return <Text style={styles.textCounter}>{progressValue}</Text>;
+};
 
 const SpeedScreen = () => {
   const translatePolice = useSpring({
@@ -34,7 +49,7 @@ const SpeedScreen = () => {
       tension: 60,
       friction: 20,
       mass: 1.5,
-      delay: 1000,
+      delay: 500,
     },
   });
 
@@ -45,7 +60,7 @@ const SpeedScreen = () => {
       tension: 60,
       friction: 20,
       mass: 1.5,
-      delay: 1100,
+      delay: 600,
     },
   });
 
@@ -56,7 +71,7 @@ const SpeedScreen = () => {
       tension: 120,
       friction: 20,
       mass: 1.2,
-      delay: 1400,
+      delay: 900,
     },
   });
 
@@ -67,7 +82,7 @@ const SpeedScreen = () => {
       tension: 120,
       friction: 20,
       mass: 1.2,
-      delay: 1600,
+      delay: 1100,
     },
   });
 
@@ -88,7 +103,7 @@ const SpeedScreen = () => {
       tension: 120,
       friction: 8,
       mass: 1,
-      delay: 1700,
+      delay: 1200,
     },
   });
 
@@ -99,7 +114,7 @@ const SpeedScreen = () => {
       tension: 120,
       friction: 8,
       mass: 1,
-      delay: 1800,
+      delay: 1300,
     },
   });
 
@@ -110,11 +125,10 @@ const SpeedScreen = () => {
       tension: 40,
       friction: 20,
       mass: 2,
-      delay: 2000,
+      delay: 1500,
     },
   });
 
-  const circumference = r * A;
   const α = interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [-A, 0],
@@ -122,7 +136,15 @@ const SpeedScreen = () => {
   const strokeDashoffset = multiply(α, r);
   return (
     <View style={styles.container}>
-      <Animated.View style={{opacity, transform: [{scale}]}}>
+      <Animated.View
+        style={{
+          flex: 2,
+          justifyContent: 'center',
+          marginBottom: 20,
+          alignItems: 'center',
+          opacity,
+          transform: [{scale}],
+        }}>
         <Svg width={size} height={size}>
           <Defs>
             <LinearGradient id="grad" x1="0" y1="0" x2="100%" y2="0">
@@ -148,10 +170,27 @@ const SpeedScreen = () => {
             d={d}
             stroke="#373c54"
             fill="none"
-            strokeDasharray={[12, 6]}
+            strokeDasharray={[12, 4]}
             strokeWidth={strokeWidth + 1}
           />
         </Svg>
+        <View
+          style={{
+            position: 'absolute',
+            justifyContent: 'center',
+            height: '100%',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}>
+          <Text
+            style={{
+              fontSize: 24,
+              color: '#747ea8',
+            }}>
+            Km/h
+          </Text>
+          <Counter progress={progress} />
+        </View>
       </Animated.View>
       <View style={styles.column}>
         <Animated.View
@@ -173,9 +212,17 @@ const SpeedScreen = () => {
                 transform: [{translateY: translateBottomUp}],
               },
             ]}>
-            <Text style={styles.text}>Nearest</Text>
-            <Text style={[styles.text, {color: '#38fee9'}]}>220</Text>
-            <Text style={styles.text}>Washington St.</Text>
+            <Text style={[styles.text, {color: '#747ea8'}]}>Nearest</Text>
+            <Text
+              style={[
+                styles.text,
+                {fontWeight: 'bold', color: '#38fee9', fontSize: 24},
+              ]}>
+              220m
+            </Text>
+            <Text style={[styles.text, {color: '#747ea8'}]}>
+              Washington St.
+            </Text>
           </Animated.View>
         </Animated.View>
         <View style={styles.box}>
@@ -209,15 +256,15 @@ const SpeedScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    paddingTop: 60,
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#373c54',
   },
   column: {
-    position: 'absolute',
-    bottom: 0,
+    flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     width: '100%',
     alignItems: 'center',
   },
@@ -228,7 +275,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wrapperInfo: {
-    padding: 20,
+    height: 100,
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
@@ -243,7 +290,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#393b54',
+    backgroundColor: '#474663',
   },
   policeBox: {
     padding: 20,
@@ -263,6 +310,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    color: '#fff',
+  },
+  textCounter: {
+    fontSize: 150,
     color: '#fff',
   },
 });
