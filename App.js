@@ -4,6 +4,8 @@ import {createAppContainer} from 'react-navigation';
 import Home from './src/screens/home';
 import InfiniteScrollExample from './src/screens/infiniteScroll';
 import SpeedScreen from './src/screens/speed';
+import SpringTest from './src/screens/springTest';
+import ListTransition from './src/screens/listTransition';
 
 useScreens();
 
@@ -17,6 +19,12 @@ const appStack = createNativeStackNavigator(
     },
     SpeedScreen: {
       screen: SpeedScreen,
+    },
+    Test: {
+      screen: SpringTest,
+    },
+    ListTransition: {
+      screen: ListTransition,
     },
   },
   {
