@@ -1,40 +1,115 @@
-import React, { useState } from 'react';
-import {View, StyleSheet, Dimensions, Text, Image} from 'react-native';
-import {useTransition} from '../hooks';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Text,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import {useTransition, useSpring} from '../hooks';
 import Animated from 'react-native-reanimated';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 const {height, width} = Dimensions.get('window');
 
 const ListTransition = () => {
   const [reverse, set] = useState(false);
-  const list = useTransition(data, item => item.name, {
-    trail: 50,
-    from: {width: 0,opacity: 0,transform: [{translateY: height, translateX: 0}]},
-    to: [
-        {width: 200,opacity: 1,transform: [{translateY: 0, translateX: 0}]},
-        {width: width - 20,opacity: 1,transform: [{translateY: 0, translateX: 0}]},
-        {width: width - 20,opacity: 1,transform: [{translateY: 0, translateX: width}]},
-    ],
-    config: {
-      reverse,
-      tension: 30,
-      friction: 6,
-      mass: 1,
-      delay: 200,
+  const [stop, setStop] = useState(true);
+  // const props = useSpring({
+  //   from: {
+  //     width: 0,
+  //     opacity: 0,
+  //     backgroundColor: '#FFF',
+  //     transform: [{translateY: height, translateX: 0}],
+  //   },
+  //   to: [
+  //     {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
+  //       {
+  //         width: width - 20,
+  //         opacity: 1,
+  //         backgroundColor: '#F00',
+  //         transform: [{translateY: 0, translateX: 0}],
+  //       },
+  //       {
+  //         width: width - 20,
+  //         opacity: 1,
+  //         backgroundColor: '#FDD',
+  //         transform: [{translateY: 0, translateX: width}],
+  //       },
+  //   ],
+  //   config: {
+  //     stop,
+  //     reverse
+  //   }
+  // })
+  const list = useTransition(
+    data,
+    item => item.name,
+    {
+      // trail: 50,
+      from: {
+        width: 0,
+        opacity: 0,
+        backgroundColor: '#f66',
+        transform: [{translateY: height, translateX: 0}],
+      },
+      to: [
+        {
+          width: 200,
+          backgroundColor: '#fff',
+          opacity: 1,
+          transform: [{translateY: 0, translateX: 0}],
+        },
+        {
+          width: width - 20,
+          backgroundColor: '#f09',
+          opacity: 1,
+          transform: [{translateY: 0, translateX: 0}],
+        },
+        {
+          width: width - 20,
+          opacity: 1,
+          backgroundColor: '#F00',
+          transform: [{translateY: 0, translateX: width}],
+        },
+      ],
+      config: {
+        stop,
+        reverse,
+        // loop: true,
+        // reset: true,
+        tension: 10,
+        friction: 6,
+        mass: 1,
+        delay: 200,
+      },
     },
-  }, [reverse]);
+    [reverse, stop],
+  );
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => set(prevState => !prevState)}>
-        <Text style={{color: '#fff'}}>In/Out</Text>
-      </TouchableOpacity>
-      {list.map(({item, key, props}) => (
-        <Animated.View key={key} style={[styles.card, props]}>
-          <Image style={styles.image} source={{uri: item.uri}} />
-          <Text>{item.name}</Text>
-        </Animated.View>
-      ))}
-    </View>
+    <ScrollView style={{flex: 1}} contentContainerStyle={{flex: 1}}>
+      <View style={styles.container}>
+        <Text style={{color: '#fff'}}>{`Stop State: ${stop}`}</Text>
+        <Text style={{color: '#fff'}}>{`Reverse State: ${reverse}`}</Text>
+        <TouchableOpacity onPress={() => set(prevState => !prevState)}>
+          <Text style={{color: '#fff'}}>In/Out</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setStop(prevState => !prevState)}>
+          <Text style={{color: '#fff'}}>Start/Stop</Text>
+        </TouchableOpacity>
+        {/* <Animated.View style={[styles.card, props]}>
+          <Image style={styles.image} source={{uri: "https://pbs.twimg.com/profile_images/1174066757151219712/lEEalRTJ_400x400.jpg"}} />
+          <Text>rodolfo</Text>
+        </Animated.View> */}
+        {list.map(({item, key, props}) => (
+          <Animated.View key={key} style={[styles.card, props]}>
+            <Image style={styles.image} source={{uri: item.uri}} />
+            <Text>{item.name}</Text>
+          </Animated.View>
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -54,7 +129,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     padding: 20,
     borderRadius: 16,
-    height: 100,
+    height: 80,
     backgroundColor: '#fff',
   },
   image: {
@@ -86,8 +161,10 @@ const data = [
     name: 'osdnk',
     uri:
       'https://pbs.twimg.com/profile_images/1175456331035238402/0xg_UQ6y_400x400.jpg',
-  },{
-      name: 'satya164',
-      uri: 'https://pbs.twimg.com/profile_images/1162955469129838594/RheW-Tfc_400x400.jpg'
-  }
+  },
+  {
+    name: 'satya164',
+    uri:
+      'https://pbs.twimg.com/profile_images/1162955469129838594/RheW-Tfc_400x400.jpg',
+  },
 ];

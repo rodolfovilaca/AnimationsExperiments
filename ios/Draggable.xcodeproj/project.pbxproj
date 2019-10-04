@@ -17,8 +17,8 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* DraggableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DraggableTests.m */; };
-		3892BAA1729009D5A61ABBA7 /* libPods-DraggableTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E489E9BD188453169C9050F /* libPods-DraggableTests.a */; };
 		9A53CDD0199B2608C0428CB3 /* libPods-Draggable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBD8667F77D97419932EFFD /* libPods-Draggable.a */; };
+		BBCB478B3F2A3E2ECFE3A120 /* libPods-Draggable-DraggableTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9776E9FB3AA717A4275D8CEE /* libPods-Draggable-DraggableTests.a */; };
 		BDFDF3A90895F18331544E9A /* libPods-Draggable-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FD683649C29E467409BD38 /* libPods-Draggable-tvOS.a */; };
 /* End PBXBuildFile section */
 
@@ -54,13 +54,15 @@
 		2D02E47B1E0B4A5D006451C7 /* Draggable-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Draggable-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Draggable-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Draggable-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6CE990CF69365787F46EBD /* Pods-DraggableTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DraggableTests.debug.xcconfig"; path = "Target Support Files/Pods-DraggableTests/Pods-DraggableTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3E489E9BD188453169C9050F /* libPods-DraggableTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DraggableTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45FD683649C29E467409BD38 /* libPods-Draggable-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Draggable-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9FB1045A3DAC20C7F2FC3F /* Pods-Draggable-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Draggable-tvOSTests/Pods-Draggable-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		6EDB1CE7FA56AE2EB769D144 /* Pods-Draggable-DraggableTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable-DraggableTests.debug.xcconfig"; path = "Target Support Files/Pods-Draggable-DraggableTests/Pods-Draggable-DraggableTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7914605CF84915F2384C4459 /* Pods-DraggableTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DraggableTests.release.xcconfig"; path = "Target Support Files/Pods-DraggableTests/Pods-DraggableTests.release.xcconfig"; sourceTree = "<group>"; };
+		7BBC753BD75DE5654F386B99 /* Pods-Draggable-DraggableTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable-DraggableTests.release.xcconfig"; path = "Target Support Files/Pods-Draggable-DraggableTests/Pods-Draggable-DraggableTests.release.xcconfig"; sourceTree = "<group>"; };
 		81C8417BC42D274C8FBCFB82 /* Pods-Draggable-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Draggable-tvOS/Pods-Draggable-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		826F55D289501EEBFA25EB29 /* Pods-Draggable-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Draggable-tvOS/Pods-Draggable-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		8DC679A186B60DCAD56708C2 /* Pods-Draggable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable.release.xcconfig"; path = "Target Support Files/Pods-Draggable/Pods-Draggable.release.xcconfig"; sourceTree = "<group>"; };
+		9776E9FB3AA717A4275D8CEE /* libPods-Draggable-DraggableTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Draggable-DraggableTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		97DF991EF057EF35ED0C9FEE /* Pods-Draggable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable.debug.xcconfig"; path = "Target Support Files/Pods-Draggable/Pods-Draggable.debug.xcconfig"; sourceTree = "<group>"; };
 		AB40A28DAB51CBFE24014382 /* libPods-Draggable-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Draggable-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6005320A71959794368A240 /* Pods-Draggable-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Draggable-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Draggable-tvOSTests/Pods-Draggable-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3892BAA1729009D5A61ABBA7 /* libPods-DraggableTests.a in Frameworks */,
+				BBCB478B3F2A3E2ECFE3A120 /* libPods-Draggable-DraggableTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +146,7 @@
 				FEBD8667F77D97419932EFFD /* libPods-Draggable.a */,
 				45FD683649C29E467409BD38 /* libPods-Draggable-tvOS.a */,
 				AB40A28DAB51CBFE24014382 /* libPods-Draggable-tvOSTests.a */,
-				3E489E9BD188453169C9050F /* libPods-DraggableTests.a */,
+				9776E9FB3AA717A4275D8CEE /* libPods-Draggable-DraggableTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -193,6 +195,8 @@
 				5C9FB1045A3DAC20C7F2FC3F /* Pods-Draggable-tvOSTests.release.xcconfig */,
 				3A6CE990CF69365787F46EBD /* Pods-DraggableTests.debug.xcconfig */,
 				7914605CF84915F2384C4459 /* Pods-DraggableTests.release.xcconfig */,
+				6EDB1CE7FA56AE2EB769D144 /* Pods-Draggable-DraggableTests.debug.xcconfig */,
+				7BBC753BD75DE5654F386B99 /* Pods-Draggable-DraggableTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -410,7 +414,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DraggableTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Draggable-DraggableTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -580,7 +584,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A6CE990CF69365787F46EBD /* Pods-DraggableTests.debug.xcconfig */;
+			baseConfigurationReference = 6EDB1CE7FA56AE2EB769D144 /* Pods-Draggable-DraggableTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -603,7 +607,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7914605CF84915F2384C4459 /* Pods-DraggableTests.release.xcconfig */;
+			baseConfigurationReference = 7BBC753BD75DE5654F386B99 /* Pods-Draggable-DraggableTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

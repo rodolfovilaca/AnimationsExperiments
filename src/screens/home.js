@@ -20,7 +20,7 @@ const Home = props => {
       mass: 1,
       delay: 1000,
     },
-  });
+  }, []);
 
   const scaleOwl = interpolate(owlTransition, {
     inputRange: [-height / 2 + 100, 0],
@@ -37,7 +37,7 @@ const Home = props => {
       mass: 1,
       delay: 2000,
     },
-  });
+  }, []);
 
   useCode(
     cond(lessOrEq(owlTranslateX, -100), call([], () => setShowTitle(true))),
@@ -53,7 +53,7 @@ const Home = props => {
       mass: 1,
       delay: 2400,
     },
-  });
+  }, []);
 
   const scaleTitle = interpolate(opacity, {
     inputRange: [0.1, 1],
@@ -81,7 +81,7 @@ const Home = props => {
       mass: 1,
       delay: 1000,
     },
-  });
+  }, []);
 
   return (
     <View style={styles.container}>

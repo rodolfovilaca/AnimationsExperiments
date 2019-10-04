@@ -15,9 +15,6 @@ const MAX_TRANS_HORIZONTAL = MAX_WIDTH_TRANS / 2 - 100;
 const MAX_TRANS_VERTICAL = MAX_HEIGHT_TRANS / 2 - 150;
 const DRAG_TOSS = 0.05;
 
-console.log('MAX_TRANS_HORIZONTAL', MAX_TRANS_HORIZONTAL);
-console.log('MAX_TRANS_VERTICAL', MAX_TRANS_VERTICAL);
-
 const data = Array.from(Array(100)).map((_, index) => index);
 
 const {

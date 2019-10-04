@@ -6,6 +6,7 @@ import InfiniteScrollExample from './src/screens/infiniteScroll';
 import SpeedScreen from './src/screens/speed';
 import SpringTest from './src/screens/springTest';
 import ListTransition from './src/screens/listTransition';
+import NiceFoldableExample from './src/screens/niceFoldableExample';
 
 useScreens();
 
@@ -28,7 +29,7 @@ const appStack = createNativeStackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'ListTransition',
     headerMode: 'none',
     // transparentCard: true,
     // mode: 'modal',
