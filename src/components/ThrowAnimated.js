@@ -26,7 +26,6 @@ class ThrowAnimated extends React.Component {
         this.state.transY.setOffset(0);
       }
       if (event.nativeEvent.oldState === State.ACTIVE) {
-        console.log('event.nativeEvent', event.nativeEvent);
         const endOffsetX =
           event.nativeEvent.velocityX > 0
             ? Math.min(

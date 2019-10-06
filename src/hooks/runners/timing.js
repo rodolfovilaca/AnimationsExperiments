@@ -11,6 +11,7 @@ const {
   proc,
   timing,
   call,
+  debug,
 } = Animated;
 
 const stateProc = proc(
@@ -54,15 +55,14 @@ function timingAnim(clock, state, config) {
   );
 }
 
-export const runTiming = ({
+export default function runTiming({
   clock,
-  //   oppositeClock,
   from,
   to,
   onFinish,
   duration,
   easing,
-}) => {
+}) {
   const state = {
     finished: new Value(0),
     position: new Value(0),
@@ -77,7 +77,6 @@ export const runTiming = ({
   };
 
   return block([
-    // cond(clockRunning(oppositeClock), stopClock(oppositeClock), 0),
     cond(clockRunning(clock), 0, [
       stateProc(
         from,
@@ -94,6 +93,7 @@ export const runTiming = ({
     cond(
       state.finished,
       stopClock(clock),
+      debug('=========> running delay', state.finished),
       // block([
       //   stopClock(clock),
       //   call([], () => {
@@ -101,6 +101,6 @@ export const runTiming = ({
       //   }),
       // ]),
     ),
-    state.position
+    state.position,
   ]);
-};
+}

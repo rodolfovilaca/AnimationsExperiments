@@ -1,33 +1,31 @@
-import {useRef, useState, useEffect, useMemo} from 'react';
-import {timing, delay} from 'react-native-redash';
-import Animated from 'react-native-reanimated';
-import {State} from 'react-native-gesture-handler';
+import {useSpring} from './useSpring';
+import useSyncTransition from './useSyncTransition';
 
-const {
-  Value,
-  useCode,
-  set,
-  Clock,
-  clockRunning,
-  cond,
-  stopClock,
-  spring,
-  startClock,
-  SpringUtils,
-  divide,
-  diff,
-  block,
-  eq,
-  add,
-  sub,
-  multiply,
-  lessThan,
-  abs,
-  greaterThan,
-  debug,
-  not,
-  call,
-  defined,
-  and,
-  interpolate,
-} = Animated;
+export default function useTransition(
+  items,
+  keyExtractor,
+  {trail, from, to, config},
+  deps,
+) {
+  return trail
+    ? items.map((item, index) => {
+        const props = useSpring(
+          {
+            from,
+            to,
+            config: {
+              ...config,
+              delay: (config.delay || 0) + (trail || 0) * index,
+            },
+          },
+          deps,
+        );
+        const key = keyExtractor(item);
+        return {
+          item,
+          props,
+          key,
+        };
+      })
+    : useSyncTransition(items, keyExtractor, {trail, from, to, config}, deps);
+}

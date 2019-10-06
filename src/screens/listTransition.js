@@ -16,6 +16,7 @@ const {height, width} = Dimensions.get('window');
 const ListTransition = () => {
   const [reverse, set] = useState(false);
   const [stop, setStop] = useState(true);
+  const [loop, setLoop] = useState(false);
   // const props = useSpring({
   //   from: {
   //     width: 0,
@@ -23,24 +24,26 @@ const ListTransition = () => {
   //     backgroundColor: '#FFF',
   //     transform: [{translateY: height, translateX: 0}],
   //   },
-  //   to: [
-  //     {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
-  //       {
-  //         width: width - 20,
-  //         opacity: 1,
-  //         backgroundColor: '#F00',
-  //         transform: [{translateY: 0, translateX: 0}],
-  //       },
-  //       {
-  //         width: width - 20,
-  //         opacity: 1,
-  //         backgroundColor: '#FDD',
-  //         transform: [{translateY: 0, translateX: width}],
-  //       },
-  //   ],
+  //   to: {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
+  //   // to: [
+  //   //   {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
+  //   //     {
+  //   //       width: width - 20,
+  //   //       opacity: 1,
+  //   //       backgroundColor: '#F00',
+  //   //       transform: [{translateY: 0, translateX: 0}],
+  //   //     },
+  //   //     {
+  //   //       width: width - 20,
+  //   //       opacity: 1,
+  //   //       backgroundColor: '#FDD',
+  //   //       transform: [{translateY: 0, translateX: width}],
+  //   //     },
+  //   // ],
   //   config: {
   //     stop,
-  //     reverse
+  //     reverse,
+  //     loop
   //   }
   // })
   const list = useTransition(
@@ -48,41 +51,53 @@ const ListTransition = () => {
     item => item.name,
     {
       // trail: 50,
+      // from: {
+      //   width: 0,
+      //   opacity: 0,
+      //   backgroundColor: '#f66',
+      //   transform: [{translateY: height, translateX: 0}],
+      // },
       from: {
-        width: 0,
-        opacity: 0,
-        backgroundColor: '#f66',
-        transform: [{translateY: height, translateX: 0}],
+        width: 200,
+        backgroundColor: '#fff',
+        opacity: 1,
+        transform: [{translateY: 0, translateX: 0}],
       },
+      // from:{
+      //   width: width - 20,
+      //   backgroundColor: '#f09',
+      //   opacity: 1,
+      //   transform: [{translateY: 0, translateX: 0}],
+      // },
       to: [
-        {
-          width: 200,
-          backgroundColor: '#fff',
-          opacity: 1,
-          transform: [{translateY: 0, translateX: 0}],
-        },
+        // {
+        //   width: 200,
+        //   backgroundColor: '#fff',
+        //   opacity: 1,
+        //   transform: [{translateY: 0, translateX: 0}],
+        // },
         {
           width: width - 20,
           backgroundColor: '#f09',
           opacity: 1,
           transform: [{translateY: 0, translateX: 0}],
         },
-        {
-          width: width - 20,
-          opacity: 1,
-          backgroundColor: '#F00',
-          transform: [{translateY: 0, translateX: width}],
-        },
+        // {
+        //   width: width - 20,
+        //   opacity: 1,
+        //   backgroundColor: '#F00',
+        //   transform: [{translateY: 0, translateX: width}],
+        // },
       ],
       config: {
         stop,
         reverse,
-        // loop: true,
+        loop,
         // reset: true,
         tension: 10,
         friction: 6,
         mass: 1,
-        delay: 200,
+        delay: 0,
       },
     },
     [reverse, stop],
@@ -92,11 +107,15 @@ const ListTransition = () => {
       <View style={styles.container}>
         <Text style={{color: '#fff'}}>{`Stop State: ${stop}`}</Text>
         <Text style={{color: '#fff'}}>{`Reverse State: ${reverse}`}</Text>
+        <Text style={{color: '#fff'}}>{`Loop State: ${loop}`}</Text>
         <TouchableOpacity onPress={() => set(prevState => !prevState)}>
           <Text style={{color: '#fff'}}>In/Out</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setStop(prevState => !prevState)}>
           <Text style={{color: '#fff'}}>Start/Stop</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setLoop(prevState => !prevState)}>
+          <Text style={{color: '#fff'}}>Loop</Text>
         </TouchableOpacity>
         {/* <Animated.View style={[styles.card, props]}>
           <Image style={styles.image} source={{uri: "https://pbs.twimg.com/profile_images/1174066757151219712/lEEalRTJ_400x400.jpg"}} />

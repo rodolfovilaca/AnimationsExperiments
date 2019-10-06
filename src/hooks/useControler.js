@@ -1,15 +1,11 @@
-import {useMemo, useState, useRef, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import Animated from 'react-native-reanimated';
 import {useLazyRef} from '.';
 import {runSpring} from './runners';
-import {interpolateSequence} from './interpolations/index';
 
 const {Value, useCode, set, Clock, SpringUtils, block} = Animated;
 
-export function useSpringSequenceAnimated(
-  {from = {}, to = [], config = {}},
-  deps,
-) {
+export function useControler({from = {}, to = [], config = {}}, deps) {
   const [state, setState] = useState({
     currentAnim: config.reverse ? to.length - 1 : 1,
     animationStart: 0,
@@ -58,15 +54,13 @@ export function useSpringSequenceAnimated(
 
   const reverse = () => {
     controledConfig.ended.setValue(0);
-    if (state.animationStart !== 0) {
-      controledConfig.arrayAnim.reverse();
-      setState({
-        currentAnim: 1,
-        animationStart: 0,
-        animationEnd: 1,
-      });
-      animation.setValue(0); // needs to be set after state has been changed and effectively changed
-    }
+    controledConfig.arrayAnim.reverse();
+    setState({
+      currentAnim: 1,
+      animationStart: 0,
+      animationEnd: 1,
+    });
+    animation.setValue(0); // needs to be set after state has been changed and effectively changed
   };
 
   useEffect(() => {
@@ -74,7 +68,9 @@ export function useSpringSequenceAnimated(
   }, [config.reset]);
 
   useEffect(() => {
-    reverse();
+    if (config.reverse) {
+      reverse();
+    }
   }, [config.reverse]);
 
   useEffect(() => {
@@ -85,21 +81,20 @@ export function useSpringSequenceAnimated(
     controledConfig.stop.setValue(config.stop ? 1 : 0);
   }, [config.stop]);
 
-  const onFinish = position => {
+  const onStep = position => {
+    const {currentAnim} = state;
     if (
       config.loop &&
-      (state.currentAnim === to.length || state.currentAnim === 0)
+      (currentAnim === controledConfig.arrayAnim.length - 1 ||
+        currentAnim === 0 ||
+        controledConfig.arrayAnim.length === 2)
     ) {
-      console.log('====================> end flux');
-      controledConfig.arrayAnim.reverse();
-      animation.setValue(0);
-      setState({
-        currentAnim: 1,
-        animationStart: 0,
-        animationEnd: 1,
-      });
-    } else if (state.currentAnim > 0 && state.currentAnim < to.length) {
-      console.log('====================> inside reverse', state.currentAnim);
+      reverse();
+    } else if (
+      currentAnim > 0 &&
+      currentAnim < controledConfig.arrayAnim.length - 1
+    ) {
+      console.log('====================> inside reverse', currentAnim);
       setState(prevState => ({
         currentAnim: controledConfig.reverse
           ? prevState.currentAnim - 1
@@ -121,7 +116,7 @@ export function useSpringSequenceAnimated(
           state.animationEnd,
           springConfig,
           config.delay,
-          onFinish,
+          onStep,
           controledConfig.stop,
           controledConfig.loop,
           controledConfig.ended,
@@ -131,20 +126,5 @@ export function useSpringSequenceAnimated(
     [state],
   );
 
-  return [animation, state, controledConfig.arrayAnim];
-}
-
-export function useSpringSequence({from = {}, to = [], config = {}}, deps) {
-  const style = useRef();
-  const [animation, state, toArray] = useSpringSequenceAnimated(
-    {from, to, config},
-    deps,
-  );
-
-  return useMemo(() => {
-    if (state.currentAnim < toArray.length && state.currentAnim > 0) {
-      style.current = interpolateSequence(toArray, animation, state);
-    }
-    return style.current;
-  }, [state]);
+  return {animation, state, controledConfig, stop, start};
 }

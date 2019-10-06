@@ -1,5 +1,5 @@
 import Animated from 'react-native-reanimated';
-import {colors} from './color';
+import {colors} from './colors';
 
 const {interpolate, color, Extrapolate, round} = Animated;
 
@@ -26,10 +26,10 @@ const colorToRgbObj = color => {
   };
 };
 
-export const interpolateColor = (
+export default function interpolateColor(
   animVal,
   {inputRange, outputRange, extrapolate = Extrapolate.CLAMP},
-) => {
+) {
   const {r, g, b, a} = outputRange.map(colorToRgbObj).reduce(
     (acc, cur) => {
       acc.r.push(cur.r);
@@ -56,4 +56,4 @@ export const interpolateColor = (
   });
 
   return color(ri, gi, bi, ai);
-};
+}
