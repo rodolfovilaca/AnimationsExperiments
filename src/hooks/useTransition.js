@@ -1,4 +1,4 @@
-import {useSpring} from './useSpring';
+import useSpring from './useSpring';
 import useSyncTransition from './useSyncTransition';
 
 export default function useTransition(

@@ -29,7 +29,7 @@ const appStack = createNativeStackNavigator(
     },
   },
   {
-    initialRouteName: 'ListTransition',
+    initialRouteName: 'Home',
     headerMode: 'none',
     // transparentCard: true,
     // mode: 'modal',

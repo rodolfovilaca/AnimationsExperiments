@@ -98,10 +98,10 @@ export default function runSpring(
   dest,
   springConfig,
   delayDuration,
-  onFinish,
   stop,
   loop,
   ended,
+  onStep,
 ) {
   const state = {
     finished: new Value(0),
@@ -131,12 +131,13 @@ export default function runSpring(
         config.toValue,
       ),
       cond(
-        not(stop),
-        cond(
-          delayPresent(duration),
-          runDelay(startClock(clock), delayDuration),
-          startClock(clock),
-        ),
+        not(stop), [
+          cond(
+            delayPresent(duration),
+            runDelay(startClock(clock), delayDuration),
+            startClock(clock),
+          ),
+        ]
       ),
     ]),
     springAnim(clock, state, config),
@@ -158,11 +159,11 @@ export default function runSpring(
       cond(not(calledFinish), [
         set(calledFinish, 1),
         call([state.position], ([position]) => {
-          if (onFinish) onFinish(position);
+          if (onStep) onStep(position);
         }),
       ]),
     ]),
-    // debug('outside loop', state.position),
+    // debug('=========> inside', state.position),
     state.position,
   ];
 }

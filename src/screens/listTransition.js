@@ -15,93 +15,96 @@ const {height, width} = Dimensions.get('window');
 
 const ListTransition = () => {
   const [reverse, set] = useState(false);
-  const [stop, setStop] = useState(true);
+  const [stop, setStop] = useState(false);
   const [loop, setLoop] = useState(false);
-  // const props = useSpring({
-  //   from: {
-  //     width: 0,
-  //     opacity: 0,
-  //     backgroundColor: '#FFF',
-  //     transform: [{translateY: height, translateX: 0}],
-  //   },
-  //   to: {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
-  //   // to: [
-  //   //   {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
-  //   //     {
-  //   //       width: width - 20,
-  //   //       opacity: 1,
-  //   //       backgroundColor: '#F00',
-  //   //       transform: [{translateY: 0, translateX: 0}],
-  //   //     },
-  //   //     {
-  //   //       width: width - 20,
-  //   //       opacity: 1,
-  //   //       backgroundColor: '#FDD',
-  //   //       transform: [{translateY: 0, translateX: width}],
-  //   //     },
-  //   // ],
-  //   config: {
-  //     stop,
-  //     reverse,
-  //     loop
-  //   }
-  // })
-  const list = useTransition(
-    data,
-    item => item.name,
-    {
-      // trail: 50,
-      // from: {
-      //   width: 0,
-      //   opacity: 0,
-      //   backgroundColor: '#f66',
-      //   transform: [{translateY: height, translateX: 0}],
-      // },
-      from: {
-        width: 200,
-        backgroundColor: '#fff',
-        opacity: 1,
-        transform: [{translateY: 0, translateX: 0}],
-      },
-      // from:{
-      //   width: width - 20,
-      //   backgroundColor: '#f09',
-      //   opacity: 1,
-      //   transform: [{translateY: 0, translateX: 0}],
-      // },
-      to: [
-        // {
-        //   width: 200,
-        //   backgroundColor: '#fff',
-        //   opacity: 1,
-        //   transform: [{translateY: 0, translateX: 0}],
-        // },
-        {
-          width: width - 20,
-          backgroundColor: '#f09',
-          opacity: 1,
-          transform: [{translateY: 0, translateX: 0}],
-        },
-        // {
-        //   width: width - 20,
-        //   opacity: 1,
-        //   backgroundColor: '#F00',
-        //   transform: [{translateY: 0, translateX: width}],
-        // },
-      ],
-      config: {
-        stop,
-        reverse,
-        loop,
-        // reset: true,
-        tension: 10,
-        friction: 6,
-        mass: 1,
-        delay: 0,
-      },
+  const [reset, setReset] = useState(false);
+  const props = useSpring({
+    from: {
+      width: 0,
+      opacity: 0,
+      backgroundColor: '#FFF',
+      transform: [{translateY: height, translateX: 0}],
     },
-    [reverse, stop],
-  );
+    to: {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
+    // to: [
+    //   {width: 200, opacity: 1, backgroundColor: '#FDD', transform: [{translateY: 0, translateX: 0}]},
+    //     {
+    //       width: width - 20,
+    //       opacity: 1,
+    //       backgroundColor: '#F00',
+    //       transform: [{translateY: 0, translateX: 0}],
+    //     },
+    //     {
+    //       width: width - 20,
+    //       opacity: 1,
+    //       backgroundColor: '#FDD',
+    //       transform: [{translateY: 0, translateX: width}],
+    //     },
+    // ],
+    config: {
+      stop,
+      reverse,
+      loop,
+      reset
+    }
+  })
+  // const list = useTransition(
+  //   data,
+  //   item => item.name,
+  //   {
+  //     // trail: 50,
+  //     from: {
+  //       width: 0,
+  //       opacity: 0,
+  //       backgroundColor: '#f66',
+  //       transform: [{translateY: height, translateX: 0}],
+  //     },
+  //     // from: {
+  //     //   width: 200,
+  //     //   backgroundColor: '#fff',
+  //     //   opacity: 1,
+  //     //   transform: [{translateY: 0, translateX: 0}],
+  //     // },
+  //     // from:{
+  //     //   width: width - 20,
+  //     //   backgroundColor: '#f09',
+  //     //   opacity: 1,
+  //     //   transform: [{translateY: 0, translateX: 0}],
+  //     // },
+  //     to: [
+  //       {
+  //         width: 200,
+  //         backgroundColor: '#fff',
+  //         opacity: 1,
+  //         transform: [{translateY: 0, translateX: 0}],
+  //       },
+  //       {
+  //         width: width - 20,
+  //         backgroundColor: '#f09',
+  //         opacity: 1,
+  //         transform: [{translateY: 0, translateX: 0}],
+  //       },
+  //       {
+  //         width: width - 20,
+  //         opacity: 1,
+  //         backgroundColor: '#F00',
+  //         transform: [{translateY: 0, translateX: width}],
+  //       },
+  //     ],
+  //     config: {
+  //       stop,
+  //       reverse,
+  //       loop,
+  //       reset,
+  //       tension: 10,
+  //       friction: 6,
+  //       mass: 1,
+  //       delay: 0,
+  //       onRest: () => console.log('=================> RESTING')
+  //     },
+  //   },
+  //   [reverse, stop],
+  // );
   return (
     <ScrollView style={{flex: 1}} contentContainerStyle={{flex: 1}}>
       <View style={styles.container}>
@@ -117,16 +120,19 @@ const ListTransition = () => {
         <TouchableOpacity onPress={() => setLoop(prevState => !prevState)}>
           <Text style={{color: '#fff'}}>Loop</Text>
         </TouchableOpacity>
-        {/* <Animated.View style={[styles.card, props]}>
+        <TouchableOpacity onPress={() => setReset(prevState => !prevState)}>
+          <Text style={{color: '#fff'}}>Reset</Text>
+        </TouchableOpacity>
+        <Animated.View style={[styles.card, props]}>
           <Image style={styles.image} source={{uri: "https://pbs.twimg.com/profile_images/1174066757151219712/lEEalRTJ_400x400.jpg"}} />
           <Text>rodolfo</Text>
-        </Animated.View> */}
-        {list.map(({item, key, props}) => (
+        </Animated.View>
+        {/* {list.map(({item, key, props}) => (
           <Animated.View key={key} style={[styles.card, props]}>
             <Image style={styles.image} source={{uri: item.uri}} />
             <Text>{item.name}</Text>
           </Animated.View>
-        ))}
+        ))} */}
       </View>
     </ScrollView>
   );
@@ -181,9 +187,9 @@ const data = [
     uri:
       'https://pbs.twimg.com/profile_images/1175456331035238402/0xg_UQ6y_400x400.jpg',
   },
-  {
-    name: 'satya164',
-    uri:
-      'https://pbs.twimg.com/profile_images/1162955469129838594/RheW-Tfc_400x400.jpg',
-  },
+  // {
+  //   name: 'satya164',
+  //   uri:
+  //     'https://pbs.twimg.com/profile_images/1162955469129838594/RheW-Tfc_400x400.jpg',
+  // },
 ];
